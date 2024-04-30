@@ -10,7 +10,7 @@ st.write("Files in current directory:", os.listdir())
 
 # Load your trained model
 try:
-    with open('model.pkl', 'rb') as file:
+    with open('Streamlit/model.pkl', 'rb') as file:
         model = pickle.load(file)
     st.write("Model loaded successfully!")
 except Exception as e:
