@@ -2,9 +2,19 @@ import streamlit as st
 import pandas as pd
 import pickle
 
+import os
+
+# Debug: Print current directory and contents
+st.write("Current directory:", os.getcwd())
+st.write("Files in current directory:", os.listdir())
+
 # Load your trained model
-with open('model.pkl', 'rb') as file:
-    model = pickle.load(file)
+try:
+    with open('model.pkl', 'rb') as file:
+        model = pickle.load(file)
+    st.write("Model loaded successfully!")
+except Exception as e:
+    st.error(f"Failed to load model: {e}")
 
 # Create a simple Streamlit application
 st.title('Credit Card Fraud Detection')
