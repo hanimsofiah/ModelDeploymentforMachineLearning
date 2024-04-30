@@ -1,0 +1,53 @@
+Notes
+
+Deploy the best-performing model using a platform like Streamlit, Flask, Django, and a  cloud service google vertex AI 
+
+Description of Deployment Options:
+1. Streamlit: A simple web app framework for Python. A script is created that loads the model and allows users to input data and see predictions directly in the web app.
+2. Flask: A more flexible Python web framework that allows for the creation of RESTful APIs. Endpoints is set up for clients to interact with your model via HTTP requests.
+3. Django: Similar to Flask but includes more built-in functionalities for building complex web applications. Useful if deployment needs involve a database, user authentication, or other backend services.
+4. Vertex AI: Google's managed service for deploying machine learning models. This involves uploading model to Google Cloud, and then using Vertex AI for serving predictions.
+
+The sample of data modelling retrieved from: https://www.kaggle.com/code/vaibhavtalekar/xgboost-classifier-99-cross-validation-accuracy
+
+1. Streamlit
+
+pip install xgboost
+
+#Python pickle module, which is a common way to serialize Python objects:
+import pickle
+# Assuming 'pipeline' is the target trained model
+with open('model.pkl', 'wb') as file:
+    pickle.dump(pipeline, file)
+
+pip install streamlit
+
+# Create Streamlit Script (credit_card_fraud_detection.py) 
+# Script assumes model and any necessary pre-processing or post-processing functions are defined within the script or imported from other modules. Save this script in the same directory as saved model file (model.pkl)
+
+import streamlit as st
+import pandas as pd
+import pickle
+
+# Load your trained model
+with open('model.pkl', 'rb') as file:
+    model = pickle.load(file)
+
+# Create a simple Streamlit application
+st.title('Credit Card Fraud Detection')
+
+# Assuming the input features directly for prediction
+features = st.text_input('Enter features separated by commas')
+
+if st.button('Predict'):
+    # Convert input string to numpy array
+    features = pd.DataFrame([float(x) for x in features.split(',')]).T
+    # Use the model to make predictions
+    prediction = model.predict(features)
+    st.write('Prediction:', 'Fraud' if prediction[0] else 'Not Fraud')
+
+
+# Run Streamlit App
+
+streamlit run credit_card_fraud_detection.py
+
