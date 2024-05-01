@@ -1,8 +1,10 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/wqd7006-422016/my-flask-app:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'gcr.io/wqd7006-422016/my-flask-app:$COMMIT_SHA', '-t', 'gcr.io/wqd7006-422016/my-flask-app:latest', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/wqd7006-422016/my-flask-app:$COMMIT_SHA', 'gcr.io/wqd7006-422016/my-flask-app:latest']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
-  args: ['run', 'deploy', 'my-flask-app', '--image', 'gcr.io/wqd7006-422016/my-flask-app:$COMMIT_SHA', '--platform', 'managed', '--region', 'us-central1', '--allow-unauthenticated']
+  args: ['run', 'deploy', 'my-flask-app', '--image', 'gcr.io/wqd7006-422016/my-flask-app:latest', '--platform', 'managed', '--region', 'us-central1', '--allow-unauthenticated']
 images:
-- 'gcr.io/wqd7006-422016/my-flask-app:$COMMIT_SHA'
+- 'gcr.io/wqd7006-422016/my-flask-app:latest'
