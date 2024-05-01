@@ -22,7 +22,7 @@ with open('model.pkl', 'wb') as file:
 
 pip install streamlit
 
-# Create Streamlit Script (credit_card_fraud_detection.py) 
+# Create Streamlit Script (streamlit_app.py) 
 # Script assumes model and any necessary pre-processing or post-processing functions are defined within the script or imported from other modules. Save this script in the same directory as saved model file (model.pkl)
 
 import streamlit as st
@@ -50,4 +50,34 @@ if st.button('Predict'):
 # Run Streamlit App
 
 streamlit run credit_card_fraud_detection.py
+
+2. Flask Framework
+
+pip install flask
+
+# Create Flask App (flask_app.py)
+
+from flask import Flask, request, jsonify
+import pickle
+
+app = Flask(__name__)
+
+# Load your trained model
+model = pickle.load(open('model.pkl', 'rb'))
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.get_json(force=True)
+    prediction = model.predict([data['features']])
+    return jsonify(prediction.tolist())
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+python flask_app.py
+
+
+curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d "{\"features\": \"12,-2.791854766,-0.327770757,1.641750161,1.767472744,-0.136588446,0.807596468,-0.42291139,-1.907107476,0.755712908,1.151086988,0.844555471,0.792943952,0.370448093,-0.734975106,0.40679571,-0.303057624,-0.155868715,0.778265457,2.221868014,-1.582122044,1.151663048,0.222181966,1.020586204,0.028316651,-0.232746324,-0.235557218,-0.164777512,-0.030153637,58.8\"}"
+
 
