@@ -5,8 +5,6 @@ Deploy the best-performing model using a platform like Streamlit, Flask, Django,
 Description of Deployment Options:
 1. Streamlit: A simple web app framework for Python. A script is created that loads the model and allows users to input data and see predictions directly in the web app.
 2. Flask: A more flexible Python web framework that allows for the creation of RESTful APIs. Endpoints is set up for clients to interact with your model via HTTP requests.
-3. Django: Similar to Flask but includes more built-in functionalities for building complex web applications. Useful if deployment needs involve a database, user authentication, or other backend services.
-4. Vertex AI: Google's managed service for deploying machine learning models. This involves uploading model to Google Cloud, and then using Vertex AI for serving predictions.
 
 The sample of data modelling retrieved from: https://www.kaggle.com/code/vaibhavtalekar/xgboost-classifier-99-cross-validation-accuracy
 
