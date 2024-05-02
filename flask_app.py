@@ -29,7 +29,6 @@ def home():
             # Create a DataFrame with the correct columns
             features_df = pd.DataFrame([feature_list], columns=columns)
             
-            # Use the model to make predictions
             prediction = model.predict(features_df)
             result = 'Fraud' if prediction[0] else 'Not Fraud'
             return render_template('index.html', prediction=result, model_loaded=model_loaded)
